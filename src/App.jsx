@@ -4,7 +4,7 @@ import FormComponent from './components/Form.jsx'
 const App = () => {
   return (
  <>
-    <div>App</div>
+    
 
     <FormComponent/>
  </>

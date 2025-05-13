@@ -61,9 +61,12 @@ const FormComponent = () => {
                 className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
-              <p className="p-2 text-center border rounded-lg">{entry.newMarks1}</p>
-              <p className="p-2 text-center border rounded-lg">{entry.newMarks2}</p>
-              <p className="p-2 text-center border rounded-lg">{entry.newMarks3}</p>
+              <p className={`p-2 text-center ${entry.newMarks1 > 60 ? "bg-red-400" : "bg-white"} border rounded-lg`}>
+  {entry.newMarks1}
+</p>
+
+              <p className={`p-2 text-center ${entry.newMarks2 > 60 ? "bg-red-400" : "bg-white"} border rounded-lg`}>{entry.newMarks2}</p>
+             <p className={`p-2 text-center ${entry.newMarks3 > 60 ? "bg-red-400" : "bg-white"} border rounded-lg`}>{entry.newMarks3}</p>
             </div>
           ))}
 
