@@ -107,10 +107,10 @@ const FormComponent = () => {
             <span className="text-pink-500">CALC</span>
           </h1>
           <p className="text-gray-400 text-lg mb-2">
-            Calculate required marks for your target CGPA.
+            Calculate required marks for your target CGPA For <span className=' font-extrabold'>IPU</span> Endsems
           </p>
           <p className="text-gray-600 text-sm font-mono">
-            // Free. Community-driven. Fast.
+           
           </p>
         </div>
 
