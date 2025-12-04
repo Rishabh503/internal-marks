@@ -75,14 +75,14 @@ const FormComponent = () => {
             <p className="text-gray-500 text-sm tracking-wider uppercase">Welcome to</p>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-4">
-            <span className="text-white">CGPA</span>
-            <span className="text-pink-500">CALC</span>
+            <span className="text-white">CGPA CALCULATOR</span>
+            {/* <span className="text-pink-500">CALC</span> */}
           </h1>
           <p className="text-gray-400 text-lg mb-2">
             Calculate required marks for your target CGPA.
           </p>
           <p className="text-gray-600 text-sm font-mono">
-            // Free. Community-driven. Fast.
+            {/* // Free. Community-driven. Fast. */}
           </p>
         </div>
 
@@ -275,7 +275,7 @@ const FormComponent = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 bg-red-500/20 border-2 border-red-500/30 rounded"></div>
-                    <span className="text-gray-400">Difficult (>60 marks needed)</span>
+                    <span className="text-gray-400">Difficult (more than 60 marks needed)</span>
                   </div>
                 </div>
               </div>
