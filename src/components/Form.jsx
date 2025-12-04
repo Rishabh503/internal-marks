@@ -101,7 +101,7 @@ const FormComponent = () => {
     const updatedData = formData.map((entry) => ({
       ...entry,
       newMarks1: 55 - Number(entry.marks), // 7 SGPA
-      newMarks2: 64 - Number(entry.marks), // 8 SGPA
+      newMarks2: 65 - Number(entry.marks), // 8 SGPA
       newMarks3: 75 - Number(entry.marks), // 9 SGPA
       newMarks4: 90 - Number(entry.marks), // 10 SGPA
     }));
