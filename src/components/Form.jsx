@@ -1,16 +1,37 @@
 import React, { useState } from 'react';
+import { Plus, Trash2, Calculator } from 'lucide-react';
 
 const FormComponent = () => {
   const [formData, setFormData] = useState([
-    { subject: 'a', marks: 0 },
-    { subject: 'b', marks: 0 },
-    { subject: 'c', marks: 0 },
-    { subject: 'd', marks: 0 },
-    { subject: 'e', marks: 0 },
-    { subject: 'f', marks: 0 }
+    { subject: 'Mathematics', marks: 0 },
+    { subject: 'Physics', marks: 0 },
+    { subject: 'Chemistry', marks: 0 }
   ]);
 
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
+
+  const semesterTemplates = {
+    sem3: [
+      { subject: 'DS', marks: 0 },
+      { subject: 'CM', marks: 0 },
+      { subject: 'DM', marks: 0 },
+      { subject: 'OOPS', marks: 0 },
+      { subject: 'DLCD', marks: 0 }
+    ],
+    sem5: [
+      { subject: 'DAA', marks: 0 },
+      { subject: 'OS', marks: 0 },
+      { subject: 'CD', marks: 0 },
+      { subject: 'CN', marks: 0 },
+      { subject: 'EFE', marks: 0 },
+      { subject: 'SE', marks: 0 }
+    ]
+  };
+
+  const loadSemester = (semester) => {
+    setFormData(semesterTemplates[semester]);
+    setShow(false);
+  };
 
   const handleChange = (index, field, value) => {
     const updatedData = [...formData];
@@ -18,7 +39,20 @@ const FormComponent = () => {
     setFormData(updatedData);
   };
 
-   const handleSubmit = (e) => {
+  const addSubject = () => {
+    setFormData([...formData, { subject: '', marks: 0 }]);
+    setShow(false);
+  };
+
+  const removeSubject = (index) => {
+    if (formData.length > 1) {
+      const updatedData = formData.filter((_, i) => i !== index);
+      setFormData(updatedData);
+      setShow(false);
+    }
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const updatedData = formData.map((entry) => ({
       ...entry,
@@ -28,55 +62,226 @@ const FormComponent = () => {
     }));
 
     setFormData(updatedData);
-    setShow(true)
-    console.log('Updated Form Data:', updatedData);
+    setShow(true);
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-50 p-6">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl">
-        <h2 className="text-xl font-bold mb-6 text-center">Subject Marks Input Form</h2>
-        <div className="grid grid-cols-5 gap-4 mb-4 font-medium">
-          <p className="text-center">Subject</p>
-          <p className="text-center">Internal Marks</p>
-          <p className="text-center">8 CGPA</p>
-          <p className="text-center">9 CGPA</p>
-          <p className="text-center">10 CGPA</p>
+    <div className="min-h-screen bg-black p-4 md:p-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
+            <p className="text-gray-500 text-sm tracking-wider uppercase">Welcome to</p>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold mb-4">
+            <span className="text-white">CGPA</span>
+            <span className="text-pink-500">CALC</span>
+          </h1>
+          <p className="text-gray-400 text-lg mb-2">
+            Calculate required marks for your target CGPA.
+          </p>
+          <p className="text-gray-600 text-sm font-mono">
+            // Free. Community-driven. Fast.
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {formData.map((entry, index) => (
-            <div key={index} className="grid grid-cols-5 gap-2 py-1">
-              <input
-                type="text"
-                value={entry.subject}
-                onChange={(e) => handleChange(index, 'subject', e.target.value)}
-                className="border text-md  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-              <input
-                type="number"
-                value={entry.marks}
-                onChange={(e) => handleChange(index, 'marks', e.target.value)}
-                className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-              <p className={`p-2 text-center ${entry.newMarks1 > 60 ? "bg-red-400" : "bg-white"} border rounded-lg`}>
-  {entry.newMarks1}
-</p>
-
-              <p className={`p-2 text-center ${entry.newMarks2 > 60 ? "bg-red-400" : "bg-white"} border rounded-lg`}>{entry.newMarks2}</p>
-             <p className={`p-2 text-center ${entry.newMarks3 > 60 ? "bg-red-400" : "bg-white"} border rounded-lg`}>{entry.newMarks3}</p>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden">
+          {/* Quick Select Semester */}
+          <div className="p-6 border-b border-zinc-800">
+            <p className="text-gray-400 text-sm mb-4 uppercase tracking-wider">Quick Select Semester:</p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={() => loadSemester('sem3')}
+                className="flex-1 px-6 py-4 bg-zinc-800 border border-pink-500/30 text-pink-400 rounded-lg hover:bg-pink-500/10 hover:border-pink-500 transition-all font-semibold"
+              >
+                3rd Semester
+                <span className="block text-xs mt-1 font-normal text-gray-500">DS • CM • DM • OOPS • DLCD</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => loadSemester('sem5')}
+                className="flex-1 px-6 py-4 bg-zinc-800 border border-pink-500/30 text-pink-400 rounded-lg hover:bg-pink-500/10 hover:border-pink-500 transition-all font-semibold"
+              >
+                5th Semester
+                <span className="block text-xs mt-1 font-normal text-gray-500">DAA • OS • CD • CN • EFE • SE</span>
+              </button>
             </div>
-          ))}
+          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 mt-4 rounded-lg hover:bg-blue-600 transition"
-          >
-            Calculate Result
-          </button>
-        </form>
+          {/* Form Container */}
+          <div className="p-6">
+            <div className="space-y-6">
+              {/* Table Header - Desktop */}
+              <div className="hidden md:grid md:grid-cols-6 gap-4 pb-4 border-b border-zinc-800">
+                <div className="col-span-2 font-semibold text-gray-400 uppercase text-xs tracking-wider">Subject</div>
+                <div className="font-semibold text-gray-400 uppercase text-xs tracking-wider text-center">Internal Marks</div>
+                <div className="font-semibold text-gray-400 uppercase text-xs tracking-wider text-center">8 CGPA</div>
+                <div className="font-semibold text-gray-400 uppercase text-xs tracking-wider text-center">9 CGPA</div>
+                <div className="font-semibold text-gray-400 uppercase text-xs tracking-wider text-center">10 CGPA</div>
+              </div>
+
+              {/* Subject Rows */}
+              <div className="space-y-3">
+                {formData.map((entry, index) => (
+                  <div
+                    key={index}
+                    className="bg-black border border-zinc-800 p-4 rounded-lg hover:border-pink-500/30 transition-all relative"
+                  >
+                    {/* Mobile Layout */}
+                    <div className="md:hidden space-y-3">
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={entry.subject}
+                          onChange={(e) => handleChange(index, 'subject', e.target.value)}
+                          placeholder="Subject name"
+                          className="flex-1 px-4 py-3 bg-zinc-900 border border-zinc-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent placeholder-gray-600"
+                          required
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeSubject(index)}
+                          className="p-3 bg-zinc-800 text-red-400 border border-zinc-700 rounded-lg hover:bg-red-500/10 hover:border-red-500 transition disabled:opacity-30 disabled:cursor-not-allowed"
+                          disabled={formData.length === 1}
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-xs font-medium text-gray-500 mb-2 uppercase tracking-wider">Internal Marks</label>
+                        <input
+                          type="number"
+                          value={entry.marks}
+                          onChange={(e) => handleChange(index, 'marks', e.target.value)}
+                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                          required
+                        />
+                      </div>
+
+                      {show && (
+                        <div className="grid grid-cols-3 gap-2 pt-2">
+                          <div>
+                            <label className="block text-xs font-medium text-gray-500 mb-1">8 CGPA</label>
+                            <div className={`px-3 py-2 text-center rounded-lg font-bold ${
+                              entry.newMarks1 > 60 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            }`}>
+                              {entry.newMarks1}
+                            </div>
+                          </div>
+                          <div>
+                            <label className="block text-xs font-medium text-gray-500 mb-1">9 CGPA</label>
+                            <div className={`px-3 py-2 text-center rounded-lg font-bold ${
+                              entry.newMarks2 > 60 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            }`}>
+                              {entry.newMarks2}
+                            </div>
+                          </div>
+                          <div>
+                            <label className="block text-xs font-medium text-gray-500 mb-1">10 CGPA</label>
+                            <div className={`px-3 py-2 text-center rounded-lg font-bold ${
+                              entry.newMarks3 > 60 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            }`}>
+                              {entry.newMarks3}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Desktop Layout */}
+                    <div className="hidden md:grid md:grid-cols-6 gap-4 items-center">
+                      <input
+                        type="text"
+                        value={entry.subject}
+                        onChange={(e) => handleChange(index, 'subject', e.target.value)}
+                        placeholder="Subject name"
+                        className="col-span-2 px-4 py-3 bg-zinc-900 border border-zinc-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent placeholder-gray-600"
+                        required
+                      />
+                      
+                      <input
+                        type="number"
+                        value={entry.marks}
+                        onChange={(e) => handleChange(index, 'marks', e.target.value)}
+                        className="px-4 py-3 bg-zinc-900 border border-zinc-700 text-white rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                        required
+                      />
+
+                      <div className={`px-4 py-3 text-center rounded-lg font-bold ${
+                        show && entry.newMarks1 > 60 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : show ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-zinc-900 text-gray-600 border border-zinc-800'
+                      }`}>
+                        {show ? entry.newMarks1 : '-'}
+                      </div>
+
+                      <div className={`px-4 py-3 text-center rounded-lg font-bold ${
+                        show && entry.newMarks2 > 60 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : show ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-zinc-900 text-gray-600 border border-zinc-800'
+                      }`}>
+                        {show ? entry.newMarks2 : '-'}
+                      </div>
+
+                      <div className={`px-4 py-3 text-center rounded-lg font-bold ${
+                        show && entry.newMarks3 > 60 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : show ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-zinc-900 text-gray-600 border border-zinc-800'
+                      }`}>
+                        {show ? entry.newMarks3 : '-'}
+                      </div>
+
+                      {/* Delete Button - Desktop */}
+                      <button
+                        type="button"
+                        onClick={() => removeSubject(index)}
+                        className="absolute -right-2 -top-2 p-2 bg-zinc-800 text-red-400 border border-zinc-700 rounded-lg hover:bg-red-500/10 hover:border-red-500 transition disabled:opacity-30 disabled:cursor-not-allowed"
+                        disabled={formData.length === 1}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={addSubject}
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-zinc-800 border border-zinc-700 text-gray-300 rounded-lg hover:bg-zinc-700 hover:border-pink-500/50 transition-all font-semibold"
+                >
+                  <Plus size={20} />
+                  Add Subject
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-all font-semibold shadow-lg shadow-pink-500/20"
+                >
+                  <Calculator size={20} />
+                  Calculate Results
+                </button>
+              </div>
+            </div>
+
+            {/* Legend */}
+            {show && (
+              <div className="mt-6 p-4 bg-zinc-800 rounded-lg border border-zinc-700">
+                <p className="text-xs text-gray-400 font-semibold mb-3 uppercase tracking-wider">Legend:</p>
+                <div className="flex flex-wrap gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-emerald-500/20 border-2 border-emerald-500/30 rounded"></div>
+                    <span className="text-gray-400">Achievable (≤60 marks needed)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-red-500/20 border-2 border-red-500/30 rounded"></div>
+                    <span className="text-gray-400">Difficult (>60 marks needed)</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
