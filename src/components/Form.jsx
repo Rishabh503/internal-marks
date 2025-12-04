@@ -3,10 +3,12 @@ import { Plus, Trash2, Calculator, Github, Linkedin } from 'lucide-react';
 
 const FormComponent = () => {
   const [formData, setFormData] = useState([
-    { subject: 'Mathematics', marks: 0 },
-    { subject: 'Physics', marks: 0 },
-    { subject: 'Chemistry', marks: 0 }
-  ]);
+      { subject: 'Chemistry', marks: 0 },
+      { subject: 'Manufacturing', marks: 0 },
+      { subject: 'Maths', marks: 0 },
+      { subject: 'Physics', marks: 0 },
+      { subject: 'Electrical Science', marks: 0 }
+    ]);
 
   const [show, setShow] = useState(false);
   const [defaultMarks, setDefaultMarks] = useState('');
