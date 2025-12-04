@@ -25,12 +25,12 @@ const FormComponent = () => {
   };
 
   const saveToLocal = () => {
-    localStorage.setItem("sgpaData", JSON.stringify(formData));
+    localStorage.setItem("SGPAData", JSON.stringify(formData));
     alert("Saved to browser!");
   };
 
   const loadFromLocal = () => {
-    const saved = localStorage.getItem("sgpaData");
+    const saved = localStorage.getItem("SGPAData");
     if (saved) {
       setFormData(JSON.parse(saved));
       alert("Loaded saved data!");
@@ -100,10 +100,10 @@ const FormComponent = () => {
     e.preventDefault();
     const updatedData = formData.map((entry) => ({
       ...entry,
-      newMarks1: 55 - Number(entry.marks), // 7 sgpa
-      newMarks2: 64 - Number(entry.marks), // 8 sgpa
-      newMarks3: 75 - Number(entry.marks), // 9 sgpa
-      newMarks4: 90 - Number(entry.marks), // 10 sgpa
+      newMarks1: 55 - Number(entry.marks), // 7 SGPA
+      newMarks2: 64 - Number(entry.marks), // 8 SGPA
+      newMarks3: 75 - Number(entry.marks), // 9 SGPA
+      newMarks4: 90 - Number(entry.marks), // 10 SGPA
     }));
 
     setFormData(updatedData);
@@ -122,11 +122,11 @@ const FormComponent = () => {
             </p>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-4">
-            <span className="text-white">sgpa</span>
+            <span className="text-white">SGPA</span>
             <span className="text-amber-500">CALC</span>
           </h1>
           <p className="text-gray-400 text-lg mb-2">
-            Calculate required marks for your target sgpa For{" "}
+            Calculate required marks for your target SGPA For{" "}
             <span className=" font-extrabold">IPU</span> Endsems
           </p>
           <p className="text-gray-600 text-sm font-mono"></p>
@@ -218,16 +218,16 @@ const FormComponent = () => {
                   Internal Marks
                 </div>
                 <div className="font-semibold text-gray-400 uppercase text-xs tracking-wider text-center">
-                  7 sgpa
+                  7 SGPA
                 </div>
                 <div className="font-semibold text-gray-400 uppercase text-xs tracking-wider text-center">
-                  8 sgpa
+                  8 SGPA
                 </div>
                 <div className="font-semibold text-gray-400 uppercase text-xs tracking-wider text-center">
-                  9 sgpa
+                  9 SGPA
                 </div>
                 <div className="font-semibold text-gray-400 uppercase text-xs tracking-wider text-center">
-                  10 sgpa
+                  10 SGPA
                 </div>
               </div>
 
@@ -280,7 +280,7 @@ const FormComponent = () => {
                         <div className="grid grid-cols-2 gap-2 pt-2">
                           <div>
                             <label className="block text-xs font-medium text-gray-500 mb-1">
-                              7 sgpa
+                              7 SGPA
                             </label>
                             <div
                               className={`px-3 py-2 text-center rounded-lg font-bold ${
@@ -294,7 +294,7 @@ const FormComponent = () => {
                           </div>
                           <div>
                             <label className="block text-xs font-medium text-gray-500 mb-1">
-                              8 sgpa
+                              8 SGPA
                             </label>
                             <div
                               className={`px-3 py-2 text-center rounded-lg font-bold ${
@@ -308,7 +308,7 @@ const FormComponent = () => {
                           </div>
                           <div>
                             <label className="block text-xs font-medium text-gray-500 mb-1">
-                              9 sgpa
+                              9 SGPA
                             </label>
                             <div
                               className={`px-3 py-2 text-center rounded-lg font-bold ${
@@ -322,7 +322,7 @@ const FormComponent = () => {
                           </div>
                           <div>
                             <label className="block text-xs font-medium text-gray-500 mb-1">
-                              10 sgpa
+                              10 SGPA
                             </label>
                             <div
                               className={`px-3 py-2 text-center rounded-lg font-bold ${
